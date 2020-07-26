@@ -46,6 +46,11 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
+         // バリデーション
+        $request->validate([
+            'status' => 'required|max:10',
+        ]);
+        
         // メッセージを作成
         $task = new task;
         $task->status = $request->status;
