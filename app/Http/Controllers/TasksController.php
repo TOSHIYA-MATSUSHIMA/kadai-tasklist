@@ -64,7 +64,7 @@ class TasksController extends Controller
     public function show($id)
     {
          // idの値でメッセージを検索して取得
-        $task = task::findOrFail($id);
+        $task = Task::findOrFail($id);
 
         // メッセージ詳細ビューでそれを表示
         return view('tasks.show', [
@@ -81,7 +81,7 @@ class TasksController extends Controller
     public function edit($id)
     {
         // idの値でメッセージを検索して取得
-        $task = task::findOrFail($id);
+        $task = Task::findOrFail($id);
 
         // メッセージ編集ビューでそれを表示
         return view('tasks.edit', [
