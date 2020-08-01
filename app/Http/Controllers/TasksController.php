@@ -16,11 +16,16 @@ class TasksController extends Controller
     public function index()
     {
         $tasks = Task::all();
-
-        // タスク一覧ビューでそれを表示
-        return view('tasks.index', [
+        
+        if (\Auth::check()) {
+       return view('tasks.index', [
             'tasks' => $tasks,
         ]);
+    } else {
+        return view('welcome');
+    }
+        
+        
     }
 
     /**
