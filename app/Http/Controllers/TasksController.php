@@ -14,19 +14,25 @@ class TasksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $tasks = Task::all();
-        
-        if (\Auth::check()) {
-       return view('tasks.index', [
-            'tasks' => $tasks,
-        ]);
-    } else {
-        return view('welcome');
+   {
+    
+        $data = [];
+        if (\Auth::check()) { // 認証済みの場合
+            // 認証済みユーザを取得
+            $user = \Auth::user();
+            // ユーザの投稿の一覧を作成日時の降順で取得
+            $microposts = $user->microposts()->orderBy('created_at', 'desc')->paginate(10);
+
+            $data = [
+                'user' => $user,
+                'microposts' => $microposts,
+            ];
+        }
+
+        // Welcomeビューでそれらを表示
+        return view('welcome', $data);
     }
-        
-        
-    }
+
 
     /**
      * Show the form for creating a new resource.
